@@ -1,0 +1,6 @@
+downloads/*
+!downloads/.gitkeep
+
+# Código-fonte do yt-dlp baixado do GitHub (referência local) — o app usa
+# o pacote via pip, isto aqui não é dependência de nada, só não some do disco.
+yt-dlp-fonte/

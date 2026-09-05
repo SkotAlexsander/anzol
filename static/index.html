@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Baixador de Vídeo</title>
+<link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <main class="cartao">
+    <h1>Baixador de Vídeo</h1>
+    <p class="sub">Cole o link de um vídeo (YouTube e milhares de outros sites) e baixe.</p>
+
+    <div class="linha">
+      <input id="url" type="text" placeholder="https://..." autofocus />
+      <button id="btnBuscar">Buscar</button>
+    </div>
+
+    <div id="previa" class="previa oculto">
+      <img id="miniatura" alt="" />
+      <div class="previa-info">
+        <div id="titulo" class="titulo"></div>
+        <div id="meta" class="meta"></div>
+        <div class="acoes">
+          <button id="btnVideo" class="primario">Baixar vídeo (MP4)</button>
+          <button id="btnAudio" class="secundario">Baixar áudio (MP3)</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="progresso" class="progresso oculto">
+      <div class="barra"><div id="barraFill" class="barra-fill"></div></div>
+      <div id="progressoTexto" class="progresso-texto">Iniciando…</div>
+    </div>
+
+    <div id="erro" class="erro oculto"></div>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>
