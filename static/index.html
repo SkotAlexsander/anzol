@@ -3,37 +3,67 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Baixador de Vídeo</title>
+<title>Anzol</title>
+<link rel="icon" href="/icon-256.png" />
 <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
   <main class="cartao">
-    <h1>Baixador de Vídeo</h1>
-    <p class="sub">Cole o link de um vídeo (YouTube e milhares de outros sites) e baixe.</p>
+    <header class="topo">
+      <h1>Anzol</h1>
+      <p class="sub">Cole o link, escolha a qualidade, fisgue o arquivo.</p>
+    </header>
 
-    <div class="linha">
-      <input id="url" type="text" placeholder="https://..." autofocus />
-      <button id="btnBuscar">Buscar</button>
+    <div id="avisoFfmpeg" class="aviso oculto">
+      <strong>ffmpeg não encontrado.</strong> Sem ele dá para baixar só o áudio original
+      (M4A) — MP4 e MP3 precisam do ffmpeg no PATH.
     </div>
 
-    <div id="previa" class="previa oculto">
-      <img id="miniatura" alt="" />
+    <form id="formBusca" class="linha">
+      <input id="url" type="text" inputmode="url" placeholder="https://…" autofocus
+             autocomplete="off" spellcheck="false" aria-label="Link do vídeo" />
+      <button id="btnBuscar" type="submit">Buscar</button>
+    </form>
+
+    <section id="previa" class="previa oculto" aria-live="polite">
+      <img id="miniatura" alt="" hidden />
       <div class="previa-info">
         <div id="titulo" class="titulo"></div>
         <div id="meta" class="meta"></div>
+
+        <label class="playlist oculto" id="rotuloPlaylist">
+          <input type="checkbox" id="chkPlaylist" />
+          <span id="textoPlaylist"></span>
+        </label>
+
         <div class="acoes">
-          <button id="btnVideo" class="primario">Baixar vídeo (MP4)</button>
-          <button id="btnAudio" class="secundario">Baixar áudio (MP3)</button>
+          <select id="modo" aria-label="Qualidade"></select>
+          <button id="btnBaixar" class="primario" type="button">Baixar</button>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div id="progresso" class="progresso oculto">
+    <section id="progresso" class="progresso oculto" aria-live="polite">
       <div class="barra"><div id="barraFill" class="barra-fill"></div></div>
-      <div id="progressoTexto" class="progresso-texto">Iniciando…</div>
-    </div>
+      <div class="progresso-linha">
+        <span id="progressoTexto" class="progresso-texto">Iniciando…</span>
+        <button id="btnCancelar" class="link" type="button">Cancelar</button>
+      </div>
+    </section>
 
-    <div id="erro" class="erro oculto"></div>
+    <div id="erro" class="erro oculto" role="alert"></div>
+
+    <section id="secaoArquivos" class="arquivos oculto">
+      <div class="arquivos-topo">
+        <h2>Na pasta</h2>
+        <button id="btnPasta" class="link" type="button">Abrir pasta</button>
+      </div>
+      <ul id="listaArquivos" class="lista"></ul>
+    </section>
+
+    <footer class="rodape">
+      <span id="rodapeInfo"></span>
+    </footer>
   </main>
 
   <script src="/app.js"></script>

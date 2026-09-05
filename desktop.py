@@ -1,8 +1,10 @@
-"""Baixador de Vídeo — app de desktop (janela nativa sobre o mesmo Flask).
+"""Anzol — janela própria, sem navegador e sem console.
 
-Roda o servidor Flask numa thread em segundo plano e abre uma janela do
-sistema (pywebview) apontando pra ele — sem aba de navegador, sem terminal
-visível quando lançado com pythonw.
+Sobe o mesmo Flask numa thread de fundo e abre a interface numa janela do
+sistema (pywebview; no Windows, motor Edge WebView2). Fechar a janela encerra
+o processo e libera a porta.
+
+    pythonw desktop.py
 """
 from __future__ import annotations
 
@@ -10,25 +12,26 @@ import threading
 
 import webview
 
-from app import app
-
-PORTA = 8137
-
-
-def _rodar_servidor():
-    app.run(host="127.0.0.1", port=PORTA, debug=False, use_reloader=False)
+import nucleo
+from app import app, escolher_porta
 
 
-def main():
-    thread = threading.Thread(target=_rodar_servidor, daemon=True)
-    thread.start()
+def _servir(porta: int) -> None:
+    app.run(host="127.0.0.1", port=porta, debug=False, use_reloader=False)
+
+
+def main() -> None:
+    nucleo.DOWNLOADS_DIR.mkdir(parents=True, exist_ok=True)
+    porta = escolher_porta()
+
+    threading.Thread(target=_servir, args=(porta,), daemon=True).start()
 
     webview.create_window(
-        "Baixador de Vídeo",
-        f"http://127.0.0.1:{PORTA}",
-        width=920,
-        height=680,
-        min_size=(560, 420),
+        "Anzol",
+        f"http://127.0.0.1:{porta}",
+        width=960,
+        height=760,
+        min_size=(560, 480),
     )
     webview.start()
 

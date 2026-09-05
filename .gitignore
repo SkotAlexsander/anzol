@@ -1,6 +1,14 @@
+# o que o app baixa nunca vai pro repositório
 downloads/*
 !downloads/.gitkeep
 
-# Código-fonte do yt-dlp baixado do GitHub (referência local) — o app usa
-# o pacote via pip, isto aqui não é dependência de nada, só não some do disco.
+# cópia local do código-fonte do yt-dlp, guardada só como referência de leitura —
+# o app usa o pacote instalado pelo pip, isto aqui não é dependência de nada
 yt-dlp-fonte/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
